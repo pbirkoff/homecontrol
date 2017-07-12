@@ -34,7 +34,6 @@ export default {
       return this.currentTemperature.toFixed(1)
     },
     beaufort () {
-      console.log(this.windSpeed)
       if (this.windSpeed <= 0.2) {
         return 0
       }

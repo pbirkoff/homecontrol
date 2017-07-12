@@ -88,7 +88,7 @@ export default {
           this.windDirectionDegrees = r.wind.deg
         }
       }, response => {
-        // error callback
+        console.error('Weather not found')
       })
     }
   }

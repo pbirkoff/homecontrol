@@ -2,6 +2,9 @@
 
 > Project to accommodate basic tasks and information in/around and about my home
 
+## CSS
+CSS is compiled apart from the webpack task. If you want to compile your scss, do so in the frontend folder with `gulp sass` or `gulp watch`. This will compile automatically to `static/css`
+
 ## Build Setup
 
 ``` bash

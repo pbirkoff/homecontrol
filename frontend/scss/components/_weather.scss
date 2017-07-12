@@ -1,0 +1,19 @@
+$icons: '01d', '01n', '02d', '02dn', '03d', '03n', '04d', '04n', '10d', '10n', '50d', '50n';
+.weather {
+    &__temperature {
+        font-size: 2rem;
+    }
+
+    &__icon {
+      background-size: cover;
+      height: 50px;
+      width: 50px;
+    }
+}
+
+
+@each $icon in $icons {
+  .weather__icon--#{$icon} {
+    background-image: url(../img/weathericons/#{$icon}.svg);
+  }
+}

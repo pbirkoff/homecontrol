@@ -2,7 +2,7 @@
   <div class="weather">
     <div class="weather__temperature">{{ tempFixed }}<span class="weather__temperature-degrees">&#8451;</span></div>
     <div class="weather__city">{{ cityName }} </div>
-    <img :class="weatherIcon" class="weather__icon" v-if="icon !== ''">
+    <div :class="weatherIcon" class="weather__icon" v-if="icon !== ''"></div>
   </div>
 </template>
 

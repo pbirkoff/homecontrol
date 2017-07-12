@@ -1,5 +1,5 @@
 <template>
-  <div class="lights-group">
+  <div class="lights-group" v-if="lights">
     <light @statechange="lightStateChange" :state="light.state.on" :light="light" v-for="light in lights" :key="light.uniqueid"></light>
     <button @click="allOff()">Alle uit</button>
     <button @click="allOn()">Alle aan</button>
@@ -17,7 +17,7 @@ export default {
   },
   data () {
     return {
-      lights: []
+      lights: false
     }
   },
   computed: {
@@ -47,7 +47,6 @@ export default {
       this.lights[e.id].state.on = e.state
     },
     getLights () {
-      // GET /someUrl
       this.$http.get(`${hueUrl}/lights`).then(response => {
         if (response.body) {
           const allLights = response.body

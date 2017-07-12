@@ -9,6 +9,13 @@ $icons: '01d', '01n', '02d', '02dn', '03d', '03n', '04d', '04n', '10d', '10n', '
       height: 50px;
       width: 50px;
     }
+
+    &__wind-icon {
+      width: 75px;
+      height: 50px;
+      background-size: cover;
+      background-image: url(../img/weathericons/wind.svg);
+    }
 }
 
 

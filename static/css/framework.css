@@ -2871,6 +2871,13 @@ template {
   width: 50px;
 }
 
+.weather__wind-icon {
+  width: 75px;
+  height: 50px;
+  background-size: cover;
+  background-image: url(../img/weathericons/wind.svg);
+}
+
 .weather__icon--01d {
   background-image: url(../img/weathericons/01d.svg);
 }

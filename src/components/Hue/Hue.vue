@@ -4,6 +4,9 @@
     <button @click="allOff()">Alle uit</button>
     <button @click="allOn()">Alle aan</button>
   </div>
+  <div v-else>
+    Laden
+  </div>
 </template>
 
 <script>

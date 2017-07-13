@@ -1,37 +1,74 @@
 <template>
   <div class="weather">
-    <div class="weather__temperature">{{ tempFixed }}<span class="weather__temperature-degrees">&#8451;</span></div>
+    <datetime class="weather__datetime"></datetime>
+    <div class="weather__temperature">
+      {{ tempFixed }}<i class="wi wi-celsius"></i>
+    </div>
     <div class="weather__city">{{ cityName }} </div>
-    <div :class="weatherIcon" class="weather__icon" v-if="icon !== ''"></div>
-    <div class="weather__wind">
-      <div class="weather__wind-bft">{{ beaufort }}BFT</div>
-      <div class="weather__wind-icon"></div>
-      <i class="fa fa-arrow-up" :style="windDirection"></i>
+    <div class="weather__status">
+      <div class="weather__status-icon wi" :class="skyIcon"></div>
+      <div class="weather__status-wind">
+        <i class="weather__status-wind-bft" :class="beaufortClass"></i>
+        <i class="wi wi-wind towards-0-deg" :style="windDirection"></i>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import Datetime from './Datetime'
 import { weatherApiKey } from '../config'
 
 export default {
   name: 'weather',
+  components: {
+    Datetime
+  },
   data () {
     return {
       cityId: '2751791',
       currentTemperature: 0,
       cityName: '',
-      icon: '',
+      skyDescription: '',
       windSpeed: 0,
       windDirectionDegrees: ''
     }
   },
   computed: {
-    weatherIcon () {
-      return `weather__icon--${this.icon}`
+    skyIcon () {
+      if (this.skyDescription === 'broken-clouds') {
+        return 'wi-cloudy'
+      }
+
+      if (this.skyDescription === 'few-clouds' || this.skyDescription === 'scattered-clouds') {
+        return 'wi-cloud'
+      }
+
+      if (this.skyDescription === 'clear-sky') {
+        return 'wi-day-sunny'
+      }
+
+      if (this.skyDescription === 'shower-rain' || this.skyDescription === 'rain') {
+        return 'wi-rain'
+      }
+
+      if (this.skyDescription === 'thunderstorm') {
+        return 'wi-thunderstorm'
+      }
+
+      if (this.skyDescription === 'snow') {
+        return 'wi-snow'
+      }
+
+      if (this.skyDescription === 'mist') {
+        return 'wi-fog'
+      }
     },
     tempFixed () {
       return this.currentTemperature.toFixed(1)
+    },
+    beaufortClass () {
+      return `wi wi-wind-beaufort-${this.beaufort}`
     },
     beaufort () {
       if (this.windSpeed <= 0.2) {
@@ -81,7 +118,9 @@ export default {
           const r = response.body
           this.currentTemperature = r.main.temp
           this.cityName = r.name
-          this.icon = r.weather[0].icon
+
+          // descriptin is something like "broken clouds"
+          this.skyDescription = r.weather[0].description.replace(' ', '-')
 
           this.windSpeed = r.wind.speed
           this.windDirectionDegrees = r.wind.deg

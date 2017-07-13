@@ -6,7 +6,10 @@
 @import '3rdparty/font-awesome/font-awesome';
 
 @import 'components/weather';
+@import 'components/datetime';
 
 body {
     background-color: $brand-primary;
+    padding: 1rem 2rem;
+    font-family: $font-family-base;
 }

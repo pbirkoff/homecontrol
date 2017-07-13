@@ -5,6 +5,9 @@
 ## CSS
 CSS is compiled apart from the webpack task. If you want to compile your scss, do so in the frontend folder with `gulp sass` or `gulp watch`. This will compile automatically to `static/css`
 
+## Weather icons
+The app uses the weather icons from https://erikflowers.github.io/weather-icons/
+
 ## Build Setup
 
 ``` bash

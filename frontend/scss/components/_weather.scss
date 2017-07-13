@@ -5,11 +5,11 @@ $icons: '01d', '01n', '02d', '02dn', '03d', '03n', '04d', '04n', '10d', '10n', '
     height: 200px;
     border: 1px solid $white;
     grid-template-columns: 65% 35%;
-    grid-template-rows: 1fr 1fr 35px;
+    grid-template-rows: 35px 1fr 1fr;
     color: $white;
 
     &__datetime {
-      grid-row: 1 / span 2;
+      grid-row: 2 / span 2;
       grid-column: 1;
       font-size: 2rem;
       display: flex;
@@ -28,14 +28,14 @@ $icons: '01d', '01n', '02d', '02dn', '03d', '03n', '04d', '04n', '10d', '10n', '
 
     &__city {
       grid-column: 1 / span 2;
-      grid-row: 3;
-      border-top: 1px solid $white;
+      grid-row: 1;
+      border-bottom: 1px solid $white;
       line-height: 2.2rem;
       text-align: center;
     }
 
     &__status {
-      grid-row: 2;
+      grid-row: 3;
       grid-column: 2;
       display: flex;
       flex-direction: column;

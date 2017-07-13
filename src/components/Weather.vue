@@ -40,7 +40,7 @@ export default {
         return 'wi-cloudy'
       }
 
-      if (this.skyDescription === 'few-clouds' || this.skyDescription === 'scattered-clouds') {
+      if (this.skyDescription === 'few-clouds' || this.skyDescription === 'scattered-clouds' || this.skyDescription === 'overcast-clouds') {
         return 'wi-cloud'
       }
 
@@ -109,6 +109,9 @@ export default {
   },
   created () {
     this.getWeatherInformation()
+
+    // recheck the weather every 15 minutes
+    setInterval(this.getWeatherInformation, 900000)
   },
   methods: {
     getWeatherInformation () {

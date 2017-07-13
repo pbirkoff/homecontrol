@@ -5,7 +5,7 @@ $icons: '01d', '01n', '02d', '02dn', '03d', '03n', '04d', '04n', '10d', '10n', '
     height: 200px;
     border: 1px solid $white;
     grid-template-columns: 65% 35%;
-    grid-template-rows: 1fr 1fr 35px;
+    grid-template-rows: 125px 125px 35px;
     color: $white;
 
     &__datetime {

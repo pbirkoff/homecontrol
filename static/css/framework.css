@@ -2869,8 +2869,8 @@ template {
   border: 1px solid #fff;
   -ms-grid-columns: 65% 35%;
   grid-template-columns: 65% 35%;
-  -ms-grid-rows: 1fr 1fr 35px;
-  grid-template-rows: 1fr 1fr 35px;
+  -ms-grid-rows: 125px 125px 35px;
+  grid-template-rows: 125px 125px 35px;
   color: #fff;
 }
 

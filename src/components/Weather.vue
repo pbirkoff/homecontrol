@@ -63,6 +63,14 @@ export default {
       if (this.skyDescription === 'mist') {
         return 'wi-fog'
       }
+
+      if (this.skyDescription === 'moderate-rain') {
+        return 'wi-rain-mix'
+      }
+
+      if (this.skyDescription === 'rain') {
+        return 'wi-rain'
+      }
     },
     tempFixed () {
       return this.currentTemperature.toFixed(1)

@@ -1,8 +1,7 @@
 <template>
   <div class="lights-group__item">
     <h2 class="lights-group__item-title">{{ light.name }}</h2>
-    <span class="" :class="stateClass">{{ stateText }}</span>
-    <button @click="changeState(!light.state.on)">Aan/uit</button>
+    <button @click="changeState(!light.state.on)" class="btn btn-switch" :class="{ 'is--active': light.state.on }"></button>
     <input type="range" min="0" max="255" v-model="light.state.bri">
   </div>
 </template>
@@ -14,7 +13,7 @@ export default {
   props: ['light', 'state'],
   watch: {
     'state': function (s) {
-      this.changeState(s)
+      // this.changeState(s)
     },
     'light.state.bri': function (e) {
       // when the brightness is changed, don't go fire the API right away, wait half a second

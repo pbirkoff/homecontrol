@@ -6,8 +6,8 @@
     <div v-else>
       <div v-if="lights && lightsFound">
         <light @statechange="lightStateChange" :state="light.state.on" :light="light" v-for="light in lights" :key="light.uniqueid"></light>
-        <button @click="allOff()">Alle uit</button>
-        <button @click="allOn()">Alle aan</button>
+        <button @click="allOff()" class="btn btn-primary">Alles uit</button>
+        <button @click="allOn()" class="btn btn-primary">Alles aan</button>
       </div>
       <div v-if="!lightsFound">
         Lichten niet gevonden.
@@ -59,10 +59,11 @@ export default {
       this.lights[e.id].state.on = e.state
     },
     getLights () {
+      this.loading = true
       this.$http.get(`${hueUrl}/lights`).then(response => {
+        this.loading = false
         if (response.body) {
           this.lightsFound = true
-          this.loading = false
           const allLights = response.body
 
           // add the key of the light as its ID. Its used to PUT stuff

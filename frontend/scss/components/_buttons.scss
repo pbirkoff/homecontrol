@@ -1,0 +1,29 @@
+.btn-switch {
+    transition: all .1s ease-in-out;
+    border-radius: 1rem;
+    background-color: $gray-light;
+    height: 35px;
+    width: 70px;
+    border: 0;
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        right: 38px;
+        top: 3px;
+        border-radius: 50%;
+        width: 29px;
+        height: 29px;
+        background-color: $white;
+        transition: all .1s ease-in-out;
+    }
+
+    &.is--active {
+        background-color: $green;
+
+        &::before {
+            right: 3px;
+        }
+    }
+}

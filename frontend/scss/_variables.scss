@@ -106,7 +106,7 @@ $purple: #613d7c !default;
 // Create grayscale
 $gray-dark:                 #292b2c !default;
 $gray:                      #464a4c !default;
-$gray-light:                #636c72 !default;
+$gray-light:                #ccc !default;
 $gray-lighter:              #EBEBEB;
 $gray-lightest:             #f7f7f9 !default;
 
@@ -407,7 +407,7 @@ $btn-block-spacing-y:            .5rem !default;
 $btn-toolbar-margin:             .5rem !default;
 
 // Allows for customizing button radius independently from global border radius
-$btn-border-radius:              0;
+$btn-border-radius:              $border-radius;
 $btn-border-radius-lg:           0;
 $btn-border-radius-sm:           0;
 

@@ -13,19 +13,19 @@ gulp.task('sass', function () {
     gulp.src('scss/*.scss')
 
         // scss-lint
-        .pipe(scsslint({
-            'config': 'scss/.scss-lint.yml'
-        }))
+        // .pipe(scsslint({
+        //     'config': 'scss/.scss-lint.yml'
+        // }))
 
         // compile sass
         .pipe(sass({
             outputStyle: 'expanded'
         }).on('error', sass.logError))
 
-        .pipe(autoprefixer({
-            browsers: ['IE 10', 'IE 11', 'last 2 version'],
-            cascade: false
-        }))
+        // .pipe(autoprefixer({
+        //     browsers: ['IE 10', 'IE 11', 'last 2 version'],
+        //     cascade: false
+        // }))
 
         // export expanded version(s) to dist folder
         .pipe(gulp.dest('../static/css'))

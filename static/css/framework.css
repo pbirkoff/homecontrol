@@ -3817,7 +3817,6 @@ template {
   display: grid;
   width: 100%;
   height: 100%;
-  border: 1px solid #fff;
   grid-template-columns: 65% 35%;
   grid-template-rows: 35px 1fr 1fr;
 }
@@ -3829,7 +3828,7 @@ template {
   display: flex;
   justify-content: center;
   align-items: center;
-  border-right: 1px solid #fff;
+  border-right: 2px solid #fff;
   flex-direction: column;
 }
 
@@ -3843,7 +3842,7 @@ template {
 .weather__city {
   grid-column: 1 / span 2;
   grid-row: 1;
-  border-bottom: 1px solid #fff;
+  border-bottom: 2px solid #fff;
   line-height: 2.2rem;
   text-align: center;
 }
@@ -3853,7 +3852,7 @@ template {
   grid-column: 2;
   display: flex;
   flex-direction: column;
-  border-top: 1px solid #fff;
+  border-top: 2px solid #fff;
 }
 
 .weather__status-icon {
@@ -3940,8 +3939,8 @@ template {
 }
 
 .tile-hue {
-  grid-column: 4 / span 4;
-  grid-row: 1 / span 3;
+  grid-column: 4 / span 6;
+  grid-row: 1 / span 2;
   background-color: #EEC857;
 }
 
@@ -3957,7 +3956,7 @@ template {
 .tile-filler {
   grid-column: 4 / span 9;
   grid-row: 3 / span 4;
-  background-color: #EEC857;
+  background-color: #406280;
 }
 
 .tile-wunderlist {
@@ -3981,10 +3980,15 @@ template {
   align-items: center;
 }
 
+.lights-group__item {
+  margin-bottom: 1rem;
+}
+
 .lights-group__item-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 1.5rem;
 }
 
 .lights-group__item-slider {

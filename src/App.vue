@@ -11,6 +11,10 @@
     <div class="tile tile-hue">
       <hue></hue>
     </div>
+
+    <div class="tile tile-filler">
+      <h1>Ik heb hier nog niks voor...</h1>
+    </div>
   </div>
 </template>
 

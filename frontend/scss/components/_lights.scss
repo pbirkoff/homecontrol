@@ -10,10 +10,13 @@
 }
 
 .lights-group__item {
+    margin-bottom: 1rem;
+
     &-title {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        font-size: 1.5rem;
     }
 
     &-slider {

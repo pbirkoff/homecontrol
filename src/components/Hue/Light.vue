@@ -1,7 +1,7 @@
 <template>
   <div class="lights-group__item">
     <div class="lights-group__item-title">
-      <h3>{{ light.name }}</h3>
+      <span>{{ light.name }}</span>
       <button @click="changeState(!light.state.on)" class="btn btn-switch" :class="{ 'is--active': light.state.on }"></button>
     </div>
   </div>

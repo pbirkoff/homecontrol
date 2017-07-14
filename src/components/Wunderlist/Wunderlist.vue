@@ -11,10 +11,10 @@
     </ol>
 
     <div v-if="showTextAdd">
-      <form @submit="addTextTask()" class="form-inline task-add">
+      <form @submit.prevent="addTextTask()" class="form-inline task-add">
         <div class="form-group">
           <input type="text" v-model="taskText" class="form-control" v-bind:autofocus="showTextAdd">
-          <button @click="addTextTask()" class="btn task-add__btn-add"><i class="fa fa-arrow-right"></i></button>
+          <button class="btn task-add__btn-add"><i class="fa fa-arrow-right"></i></button>
         </div>
       </form>
     </div>
@@ -38,7 +38,8 @@ import { wunderListAccessToken, wunderListClientId, wunderListListId } from '../
 let WunderlistSDK = window.wunderlist.sdk
 const wunderlistAPI = new WunderlistSDK({
   'accessToken': wunderListAccessToken,
-  'clientID': wunderListClientId
+  'clientID': wunderListClientId,
+  'sockets': false
 })
 
 export default {
@@ -61,8 +62,6 @@ export default {
   methods: {
     addTextTask () {
       this.createTask(this.taskText)
-      this.taskText = ''
-      this.showTextAdd = false
     },
     createTask (str) {
       const self = this
@@ -72,6 +71,8 @@ export default {
       })
       .done(function (taskData, statusCode) {
         self.tasks.push(taskData)
+        self.taskText = ''
+        self.showTextAdd = false
       })
       .fail(function (resp, code) {
         console.log('Saving task failed')

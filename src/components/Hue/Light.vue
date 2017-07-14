@@ -2,7 +2,8 @@
   <div class="lights-group__item">
     <div class="lights-group__item-title">
       <span>{{ light.name }}</span>
-      <button @click="changeState(!light.state.on)" class="btn btn-switch" :class="{ 'is--active': light.state.on }"></button>
+      <i class="fa fa-times text--danger" v-if="!light.state.reachable"></i>
+      <button v-else @click="changeState(!light.state.on)" class="btn btn-switch" :class="stateClass"></button>
     </div>
   </div>
 </template>
@@ -39,7 +40,16 @@ export default {
       return (this.light.state.on) ? 'Aan' : 'Uit'
     },
     stateClass () {
-      return (this.light.state.on) ? 'lights-group__item-status-is--on' : 'lights-group__item-status-is--off'
+      let cls = ''
+      if (this.light.state.on) {
+        cls += 'is--active'
+      }
+
+      if (!this.light.state.reachable) {
+        cls += 'is--unreachable'
+      }
+
+      return cls
     }
   },
   methods: {

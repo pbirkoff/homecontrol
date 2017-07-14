@@ -27,4 +27,12 @@
             right: 3px;
         }
     }
+
+    &.is--unreachable {
+        background-color: $gray-light;
+
+        &::before {
+            display: none;
+        }
+    }
 }

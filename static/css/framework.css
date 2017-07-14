@@ -3813,6 +3813,14 @@ template {
   right: 3px;
 }
 
+.btn-switch.is--unreachable {
+  background-color: #ccc;
+}
+
+.btn-switch.is--unreachable::before {
+  display: none;
+}
+
 .weather {
   display: grid;
   width: 100%;
@@ -4060,4 +4068,8 @@ a {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(6, 1fr);
+}
+
+.text--danger {
+  color: #DD5B4E;
 }

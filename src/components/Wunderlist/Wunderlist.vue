@@ -1,32 +1,39 @@
 <template>
   <div class="wunderlist">
     <h1 class="wunderlist__title">Boodschappen</h1>
-    <ul v-if="tasks">
-      <li v-for="task in tasks" v-if="!task.completed">
-        <button @click="checkTask(task)">Klaar</button> {{ task.title }}
+    <ol v-if="tasks" class="task-list">
+      <li class="task-list__item" v-for="task in tasks" v-if="!task.completed">
+        {{ task.title }}
+        <button @click="checkTask(task)" class="task-list__item-btn-finalize">
+          <i class="fa fa-check"></i>
+        </button>
       </li>
-    </ul>
+    </ol>
 
     <div v-if="showTextAdd">
-      <input type="text" v-model="taskText" v-bind:autofocus="showTextAdd">
-      <button @click="addTextTask()">Klaar</button>
+      <form @submit="addTextTask()" class="form-inline task-add">
+        <div class="form-group">
+          <input type="text" v-model="taskText" class="form-control" v-bind:autofocus="showTextAdd">
+          <button @click="addTextTask()" class="btn task-add__btn-add"><i class="fa fa-arrow-right"></i></button>
+        </div>
+      </form>
     </div>
-    <button @click="showTextAdd = !showTextAdd">Toevoegen</button>
-    <button @click="showQuickAdd = !showQuickAdd">Snel toevoegen</button>
-    <ul v-if="showQuickAdd">
-      <li><button @click="createTask('Brood')">Brood</button></li>
-      <li><button @click="createTask('Melk')">Melk</button></li>
-      <li><button @click="createTask('Eten Jilles')">Eten Jilles</button></li>
-      <li><button @click="createTask('Luiers')">Luiers</button></li>
-      <li><button @click="createTask('Kattenvoer')">Kattenvoer</button></li>
-      <li><button @click="createTask('Pindakaas')">Pindakaas</button></li>
-      <li><button @click="createTask('WC-papier')">WC-papier</button></li>
+    <button @click="showTextAdd = !showTextAdd" class="btn btn-primary">Toevoegen</button>
+    <button @click="showQuickAdd = !showQuickAdd" class="btn btn-primary">Snel toevoegen</button>
+    <ul class="list-unstyled task-quick-add" v-if="showQuickAdd">
+      <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" @click="createTask('Brood')">Brood</button></li>
+      <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" @click="createTask('Melk')">Melk</button></li>
+      <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" @click="createTask('Eten Jilles')">Eten Jilles</button></li>
+      <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" @click="createTask('Luiers')">Luiers</button></li>
+      <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" @click="createTask('Kattenvoer')">Kattenvoer</button></li>
+      <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" @click="createTask('Pindakaas')">Pindakaas</button></li>
+      <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" @click="createTask('WC-papier')">WC-papier</button></li>
     </ul>
   </div>
 </template>
 
 <script>
-import { wunderListAccessToken, wunderListClientId } from '../../config'
+import { wunderListAccessToken, wunderListClientId, wunderListListId } from '../../config'
 /* eslint no-unused-vars: "error" */
 let WunderlistSDK = window.wunderlist.sdk
 const wunderlistAPI = new WunderlistSDK({
@@ -38,7 +45,7 @@ export default {
   name: 'wunderlist',
   data () {
     return {
-      shoppingListId: 302425877,
+      shoppingListId: wunderListListId,
       tasks: [],
       showQuickAdd: false,
       showTextAdd: false,
@@ -47,6 +54,9 @@ export default {
   },
   created () {
     this.getTasks()
+
+    // recheck tasks every 15 minutes
+    setInterval(this.getTasks, 900000)
   },
   methods: {
     addTextTask () {

@@ -1,8 +1,16 @@
 <template>
-  <div id="app">
-    <weather></weather>
-    <wunderlist></wunderlist>
-    <hue></hue>
+  <div id="app" class="dashboard">
+    <div class="tile tile-weather">
+      <weather></weather>
+    </div>
+
+    <div class="tile tile-wunderlist">
+      <wunderlist></wunderlist>
+    </div>
+
+    <div class="tile tile-hue">
+      <hue></hue>
+    </div>
   </div>
 </template>
 

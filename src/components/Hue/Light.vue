@@ -1,8 +1,9 @@
 <template>
   <div class="lights-group__item">
-    <h2 class="lights-group__item-title">{{ light.name }}</h2>
-    <button @click="changeState(!light.state.on)" class="btn btn-switch" :class="{ 'is--active': light.state.on }"></button>
-    <input type="range" min="0" max="255" v-model="light.state.bri">
+    <div class="lights-group__item-title">
+      <h3>{{ light.name }}</h3>
+      <button @click="changeState(!light.state.on)" class="btn btn-switch" :class="{ 'is--active': light.state.on }"></button>
+    </div>
   </div>
 </template>
 

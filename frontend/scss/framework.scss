@@ -2,12 +2,18 @@
 @import '3rdparty/bootstrap/mixins';
 @import '3rdparty/bootstrap/custom';
 @import '3rdparty/bootstrap/buttons';
+@import '3rdparty/bootstrap/type';
+@import '3rdparty/bootstrap/forms';
 
 @import '3rdparty/bootstrap/normalize';
 @import '3rdparty/font-awesome/font-awesome';
 
 @import 'components/buttons';
 @import 'components/weather';
+@import 'components/tasks';
 @import 'components/datetime';
+@import 'components/tiles';
+@import 'components/wunderlist';
+@import 'components/lights';
 @import 'scaffolding';
 

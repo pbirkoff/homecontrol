@@ -1,11 +1,11 @@
 $icons: '01d', '01n', '02d', '02dn', '03d', '03n', '04d', '04n', '10d', '10n', '50d', '50n';
 .weather {
     display: grid;
-    width: 300px;
-    border: 1px solid $black;
+    width: 100%;
+    height: 100%;
+    border: 1px solid $white;
     grid-template-columns: 65% 35%;
     grid-template-rows: 35px 1fr 1fr;
-    color: $black;
 
     &__datetime {
       grid-row: 2 / span 2;
@@ -14,7 +14,7 @@ $icons: '01d', '01n', '02d', '02dn', '03d', '03n', '04d', '04n', '10d', '10n', '
       display: flex;
       justify-content: center;
       align-items: center;
-      border-right: 1px solid $black;
+      border-right: 1px solid $white;
       flex-direction: column;
     }
 
@@ -28,7 +28,7 @@ $icons: '01d', '01n', '02d', '02dn', '03d', '03n', '04d', '04n', '10d', '10n', '
     &__city {
       grid-column: 1 / span 2;
       grid-row: 1;
-      border-bottom: 1px solid $black;
+      border-bottom: 1px solid $white;
       line-height: 2.2rem;
       text-align: center;
     }
@@ -38,7 +38,7 @@ $icons: '01d', '01n', '02d', '02dn', '03d', '03n', '04d', '04n', '10d', '10n', '
       grid-column: 2;
       display: flex;
       flex-direction: column;
-      border-top: 1px solid $black;
+      border-top: 1px solid $white;
     }
 
     &__status-icon {

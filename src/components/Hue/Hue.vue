@@ -1,17 +1,21 @@
 <template>
-  <div class="lights-group">
-    <div v-if="loading === true">
-      Laden
+  <div v-if="loading === true" class="is--loading">
+    <img src="/static/img/preloader.png" alt="loading">
+  </div>
+  <div v-else class="lights-group">
+    <div v-if="lights && lightsFound">
+      <div class="lights-group__title">
+        <h1>Lichten</h1>
+
+        <div class="lights-group__title-buttons">
+          <button @click="allOff()" class="btn btn-primary">Alles uit</button>
+          <button @click="allOn()" class="btn btn-primary">Alles aan</button>
+        </div>
+      </div>
+      <light @statechange="lightStateChange" :state="light.state.on" :light="light" v-for="light in lights" :key="light.uniqueid"></light>
     </div>
-    <div v-else>
-      <div v-if="lights && lightsFound">
-        <light @statechange="lightStateChange" :state="light.state.on" :light="light" v-for="light in lights" :key="light.uniqueid"></light>
-        <button @click="allOff()" class="btn btn-primary">Alles uit</button>
-        <button @click="allOn()" class="btn btn-primary">Alles aan</button>
-      </div>
-      <div v-if="!lightsFound">
-        Lichten niet gevonden.
-      </div>
+    <div v-if="!lightsFound">
+      Lichten niet gevonden.
     </div>
   </div>
 </template>

@@ -17,7 +17,7 @@
 
 <script>
 import Datetime from './Datetime'
-import { weatherApiKey } from '../config'
+import { weatherApiKey, weatherCityId } from '../config'
 
 export default {
   name: 'weather',
@@ -26,7 +26,7 @@ export default {
   },
   data () {
     return {
-      cityId: '2751791',
+      cityId: weatherCityId,
       currentTemperature: 0,
       cityName: '',
       skyDescription: '',

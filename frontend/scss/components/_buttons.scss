@@ -2,6 +2,7 @@
     transition: all .1s ease-in-out;
     border-radius: 1rem;
     background-color: $gray-light;
+    border: 1px solid $brand-primary;
     height: 35px;
     width: 70px;
     border: 0;
@@ -20,7 +21,7 @@
     }
 
     &.is--active {
-        background-color: $green;
+        background-color: $brand-primary;
 
         &::before {
             right: 3px;

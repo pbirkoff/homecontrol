@@ -4,6 +4,7 @@
       <span>{{ light.name }}</span>
       <i class="fa fa-times text--danger" v-if="!light.state.reachable"></i>
       <button v-else @click="changeState(!light.state.on)" class="btn btn-switch" :class="stateClass"></button>
+      <!-- <input type="range" min="0" max="255" class="lights-group__item-slider" v-model="light.state.bri">-->
     </div>
   </div>
 </template>
@@ -15,7 +16,9 @@ export default {
   props: ['light', 'state'],
   watch: {
     'state': function (s) {
-      // this.changeState(s)
+      if (s !== this.state.on) {
+        this.changeState(s)
+      }
     },
     'light.state.bri': function (e) {
       // when the brightness is changed, don't go fire the API right away, wait half a second

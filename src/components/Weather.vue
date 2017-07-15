@@ -68,7 +68,7 @@ export default {
         return 'wi-rain-mix'
       }
 
-      if (this.skyDescription === 'light-rain' || this.skyDescription === 'drizzle') {
+      if (this.skyDescription === 'light-rain' || this.skyDescription.indexOf('drizzle') > 0) {
         return 'wi-raindrops'
       }
 

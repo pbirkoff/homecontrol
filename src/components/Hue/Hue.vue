@@ -41,6 +41,8 @@ export default {
   },
   created () {
     this.getLights()
+    // check the lights every 5 minutes. This is an internal IP so we can ping it a lot more often
+    setInterval(this.getLights, 300000)
   },
   methods: {
     allOff () {

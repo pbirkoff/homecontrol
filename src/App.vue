@@ -12,8 +12,9 @@
       <hue></hue>
     </div>
 
+
     <div class="tile tile-filler">
-      <h1>Ik heb hier nog niks voor...</h1>
+     <google-places></google-places>
     </div>
   </div>
 </template>
@@ -22,13 +23,15 @@
 import Weather from './components/Weather'
 import Hue from './components/Hue/Hue'
 import Wunderlist from './components/Wunderlist/Wunderlist'
+import GooglePlaces from './components/GooglePlaces/GooglePlaces'
 
 export default {
   name: 'app',
   components: {
     Weather,
     Hue,
-    Wunderlist
+    Wunderlist,
+    GooglePlaces
   }
 }
 </script>

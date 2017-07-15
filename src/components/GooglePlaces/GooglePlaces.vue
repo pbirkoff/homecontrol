@@ -22,10 +22,10 @@ export default {
     }
   },
   created () {
-    this.getTasks()
+    this.getStoreInformation()
   },
   methods: {
-    getTasks () {
+    getStoreInformation () {
       this.$http.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${googleplacesPlace}&key=${googleplacesToken}`).then(response => {
         // console.log(response.body.result)
         if (response) {

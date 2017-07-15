@@ -1,9 +1,13 @@
 <template>
-  <div class="google_places">
-    {{storename}}
-    {{open_time}}
-    {{open_now}}
-    {{close_time}}
+  <div class="google-places">
+    <div v-if="stores" class="store-list">
+      <div class="store-list__item" v-for="store in stores">
+        {{ store.name }}
+        {{ store.openNow }}
+        {{ store.openTime }}
+        {{ store.closeTime }}
+      </div>
+    </div>
   </div>
 </template>
 
@@ -14,10 +18,7 @@ export default {
   name: 'googleplaces',
   data () {
     return {
-      storename: '',
-      open_time: '',
-      open_now: 1,
-      close_time: '',
+      stores: [],
       currentDay: new Date().getDay()
     }
   },
@@ -27,14 +28,21 @@ export default {
   methods: {
     getStoreInformation () {
       this.$http.get(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${googleplacesPlace}&key=${googleplacesToken}`).then(response => {
-        // console.log(response.body.result)
         if (response) {
-          this.storename = response.body.result.name
-          this.open_now = response.body.result.opening_hours.open_now
-          this.open_time = response.body.result.opening_hours.periods[this.currentDay].open.time
-          this.close_time = response.body.result.opening_hours.periods[this.currentDay].close.time
+          var store = []
+          store['name'] = response.body.result.name
+          store['openNow'] = response.body.result.opening_hours.open_now
+          store['openTime'] = this.formatStoreTime(response.body.result.opening_hours.periods[this.currentDay].open.time)
+          store['closeTime'] = this.formatStoreTime(response.body.result.opening_hours.periods[this.currentDay].close.time)
+          this.stores.push(store)
         }
-      }, response => {})
+      }, response => {
+        console.log('Google Places API returned no data.. check the key')
+      })
+    },
+    // Google gives us times without : which is stupid!
+    formatStoreTime (time) {
+      return time.slice(0, 2) + ':' + time.slice(2)
     }
   }
 }

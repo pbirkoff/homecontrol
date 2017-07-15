@@ -6,6 +6,7 @@ yarn-debug.log*
 yarn-error.log*
 build
 config.js
+src/App.Vue
 
 # Editor directories and files
 .idea

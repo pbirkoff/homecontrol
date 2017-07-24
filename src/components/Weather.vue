@@ -64,6 +64,10 @@ export default {
         return 'wi-fog'
       }
 
+      if (this.skyDescription.indexOf('thunderstorm') >= 0) {
+        return 'wi-thunderstorm'
+      }
+
       if (this.skyDescription === 'moderate-rain') {
         return 'wi-rain-mix'
       }

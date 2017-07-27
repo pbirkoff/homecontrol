@@ -5,7 +5,6 @@
     </div>
 
     <div class="tile tile-wunderlist">
-      <wunderlist></wunderlist>
     </div>
 
     <div class="tile tile-hue">
@@ -13,7 +12,7 @@
     </div>
 
     <div class="tile tile-filler">
-      <h1>Ik heb hier nog niks voor...</h1>
+      <microsoft-to-do></microsoft-to-do>
     </div>
   </div>
 </template>
@@ -22,13 +21,15 @@
 import Weather from './components/Weather'
 import Hue from './components/Hue/Hue'
 import Wunderlist from './components/Wunderlist/Wunderlist'
+import MicrosoftToDo from './components/MicrosoftToDo/MicrosoftToDo'
 
 export default {
   name: 'app',
   components: {
     Weather,
     Hue,
-    Wunderlist
+    Wunderlist,
+    MicrosoftToDo
   }
 }
 </script>

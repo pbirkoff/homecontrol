@@ -1,12 +1,17 @@
 <template>
   <div id="app" class="dashboard">
-    mstodo
+    <ul v-if="items.length">
+      <li v-for="item in items">
+        {{ item.Subject }}
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
 /* global Msal:true */
 /* eslint no-undef: "error" */
+import { microsoftTasksClientId, microsoftTasksGroceryListId } from '../../config'
 export default {
   name: 'mstodo',
   created () {
@@ -14,106 +19,62 @@ export default {
   },
   data () {
     return {
-      clientID: 'e49e3c0c-cc83-4250-aff2-868439026935',
-      redirectUri: '',
       userAgentApplication: null,
-      token: null,
-      token2: null
-      // token: (localStorage.getItem('token')) ? localStorage.getItem('token') : null
+      token: (localStorage.getItem('token')) ? localStorage.getItem('token') : null,
+      items: []
     }
   },
   methods: {
     init () {
       if (!this.token) {
         const self = this
-        // this.userAgentApplication = new Msal.UserAgentApplication(this.clientID)
-        this.userAgentApplication = new Msal.UserAgentApplication(this.clientID, null, function (errorDes, token, error, tokenType) {
+        // this.userAgentApplication = new Msal.UserAgentApplication(microsoftTasksClientId)
+        this.userAgentApplication = new Msal.UserAgentApplication(microsoftTasksClientId, null, function (errorDes, token, error, tokenType) {
           // this callback is called after loginRedirect OR acquireTokenRedirect (not used for loginPopup/aquireTokenPopup)
         })
 
-        this.userAgentApplication.loginPopup(['https://outlook.office.com/Tasks.readwrite']).then(function (token) {
-          let user = self.userAgentApplication.getUser()
-          console.log(token)
-          self.token2 = token
-          if (user) {
-            self.userAgentApplication.acquireTokenSilent(['https://outlook.office.com/Tasks.readwrite']).then(function (token) {
-              console.log('ATS promise resolved', token)
-              self.token = token
-              localStorage.setItem('token', token)
-              self.getTasks()
-              // self.getTasks2()
-            })
-          }
-        }, function (error) {
-          console.log(error)
-        })
+        if (!this.token) {
+          this.userAgentApplication.loginPopup(['https://outlook.office.com/Tasks.readwrite']).then(function (token) {
+            let user = self.userAgentApplication.getUser()
+            self.token2 = token
+            if (user) {
+              self.getSilentToken()
+            }
+          }, function (error) {
+            console.log(error)
+          })
+        } else {
+          this.getSilentToken()
+        }
       } else {
         this.getTasks()
       }
     },
-    getTasks () {
-      const bearer = 'Bearer ' + this.token
-      let headers = new Headers()
-      headers.append('Authorization', bearer)
-      let options = {
-        method: 'GET',
-        headers: headers
-      }
-
-      // Note that fetch API is not available in all browsers
-      fetch('https://outlook.office.com/api/v2.0/me/tasks', options).then(function (response) {
-        let contentType = response.headers.get('content-type')
-        if (response.status === 200 && contentType && contentType.indexOf('application/json') !== -1) {
-          response.json().then(function (data) {
-            console.log(data)
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
-        } else {
-          response.json().then(function (data) {
-            console.log(data)
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
-        }
-      })
-      .catch(function (error) {
-        console.log(error)
+    getSilentToken () {
+      const self = this
+      this.userAgentApplication.acquireTokenSilent(['https://outlook.office.com/Tasks.readwrite']).then(function (token) {
+        console.log('ATS promise resolved', token)
+        self.token = token
+        localStorage.setItem('token', token)
+        self.getTasks()
       })
     },
-    getTasks2 () {
-      const bearer = 'Bearer ' + this.token2
-      let headers = new Headers()
-      headers.append('Authorization', bearer)
-      let options = {
-        method: 'GET',
-        headers: headers
-      }
-
-      // Note that fetch API is not available in all browsers
-      fetch('https://graph.microsoft.com/beta/users/me/outlook/tasks', options).then(function (response) {
-        let contentType = response.headers.get('content-type')
-        if (response.status === 200 && contentType && contentType.indexOf('application/json') !== -1) {
-          response.json().then(function (data) {
-            console.log(data)
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
-        } else {
-          response.json().then(function (data) {
-            console.log(data)
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
+    getTasks () {
+      const header = 'Bearer ' + this.token
+      this.$http.get(`https://outlook.office.com/api/v2.0/me/taskfolders('${microsoftTasksGroceryListId}')/tasks`, { headers: { 'Authorization': header } }).then(response => {
+        if (response && response.body && response.body.value) {
+          this.items = response.body.value
         }
       })
-      .catch(function (error) {
-        console.log(error)
-      })
+
+      setInterval(() => {
+        const header = 'Bearer ' + this.token
+        this.$http.get(`https://outlook.office.com/api/v2.0/me/taskfolders('${microsoftTasksGroceryListId}')/tasks`, { headers: { 'Authorization': header } }).then(response => {
+          if (response && response.body && response.body.value) {
+            this.items = response.body.value
+          }
+        })
+      }, 900000)
     }
   }
 }

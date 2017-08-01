@@ -39,6 +39,7 @@ export default {
   created () {
     if (this.accesstoken) {
       this.getTasks()
+      setInterval(this.getTasks, 900000)
     }
   },
   data () {

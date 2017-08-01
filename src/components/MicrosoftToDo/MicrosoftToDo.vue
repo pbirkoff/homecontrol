@@ -68,9 +68,6 @@ export default {
       const self = this
       this.userAgentApplication.acquireTokenSilent([`${this.apiRootUrl}Tasks.readwrite`]).then(function (token) {
         self.accessToken = token
-        // self.getTasks()
-
-        // setInterval(self.getTasks, 900000)
       }, function (err) {
         console.log(err)
         self.init()

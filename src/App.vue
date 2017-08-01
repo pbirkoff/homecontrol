@@ -4,31 +4,38 @@
       <weather></weather>
     </div>
 
-    <div class="tile tile-wunderlist">
-      <wunderlist></wunderlist>
-    </div>
-
     <div class="tile tile-hue">
       <hue></hue>
     </div>
 
     <div class="tile tile-filler">
-      <h1>Ik heb hier nog niks voor...</h1>
+      <microsoft-to-do :clientid="microsoftTasksClientId" :lists="todoLists"></microsoft-to-do>
     </div>
   </div>
 </template>
 
 <script>
+import {
+  microsoftTasksClientId,
+  todoLists
+} from './config'
 import Weather from './components/Weather'
 import Hue from './components/Hue/Hue'
-import Wunderlist from './components/Wunderlist/Wunderlist'
+import MicrosoftToDo from './components/MicrosoftToDo/MicrosoftToDo'
 
 export default {
   name: 'app',
   components: {
     Weather,
     Hue,
-    Wunderlist
+    MicrosoftToDo
+  },
+  data () {
+    return {
+      todoLists,
+      microsoftTasksClientId
+    }
   }
 }
 </script>
+

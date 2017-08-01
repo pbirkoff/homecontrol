@@ -4,9 +4,6 @@
       <weather></weather>
     </div>
 
-    <div class="tile tile-wunderlist">
-    </div>
-
     <div class="tile tile-hue">
       <hue></hue>
     </div>
@@ -20,7 +17,6 @@
 <script>
 import Weather from './components/Weather'
 import Hue from './components/Hue/Hue'
-import Wunderlist from './components/Wunderlist/Wunderlist'
 import MicrosoftToDo from './components/MicrosoftToDo/MicrosoftToDo'
 
 export default {
@@ -28,7 +24,6 @@ export default {
   components: {
     Weather,
     Hue,
-    Wunderlist,
     MicrosoftToDo
   }
 }

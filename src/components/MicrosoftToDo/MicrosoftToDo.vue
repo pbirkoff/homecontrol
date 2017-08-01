@@ -36,7 +36,8 @@ export default {
       showQuickAdd: false,
       taskSubject: '',
       userAgentApplication: null,
-      token: (localStorage.getItem('token')) ? localStorage.getItem('token') : null,
+      idToken: null,
+      accessToken: (localStorage.getItem('accessToken')) ? localStorage.getItem('accessToken') : null,
       items: [],
       apiRootUrl: 'https://outlook.office.com/',
       groceryTasksUrl: `https://outlook.office.com/api/v2.0/me/taskfolders('${microsoftTasksGroceryListId}')/tasks`
@@ -44,41 +45,40 @@ export default {
   },
   methods: {
     init () {
-      if (!this.token) {
+      this.userAgentApplication = new Msal.UserAgentApplication(microsoftTasksClientId, null, function (errorDes, token, error, tokenType) {
+        // this callback is called after loginRedirect OR acquireTokenRedirect (not used for loginPopup/aquireTokenPopup)
+        console.log(token)
+      })
+      let user = this.userAgentApplication.getUser()
+      if (!user) {
         const self = this
         // this.userAgentApplication = new Msal.UserAgentApplication(microsoftTasksClientId)
-        this.userAgentApplication = new Msal.UserAgentApplication(microsoftTasksClientId, null, function (errorDes, token, error, tokenType) {
-          // this callback is called after loginRedirect OR acquireTokenRedirect (not used for loginPopup/aquireTokenPopup)
+        this.userAgentApplication.loginPopup([`${this.apiRootUrl}Tasks.readwrite`]).then(function (token) {
+          self.idToken = token
+          user = this.userAgentApplication.getUser()
+          if (user) {
+            self.getSilentToken()
+          }
+        }, function (error) {
+          console.log(error)
         })
-
-        if (!this.token) {
-          this.userAgentApplication.loginPopup([`${this.apiRootUrl}Tasks.readwrite`]).then(function (token) {
-            let user = self.userAgentApplication.getUser()
-            self.token2 = token
-            if (user) {
-              self.getSilentToken()
-            }
-          }, function (error) {
-            console.log(error)
-          })
-        } else {
-          this.getSilentToken()
-        }
       } else {
-        this.getTasks()
+        this.getSilentToken()
       }
     },
     getSilentToken () {
       const self = this
       this.userAgentApplication.acquireTokenSilent([`${this.apiRootUrl}Tasks.readwrite`]).then(function (token) {
         console.log('ATS promise resolved', token)
-        self.token = token
-        localStorage.setItem('token', token)
+        self.accessToken = token
+        localStorage.setItem('accessToken', token)
         self.getTasks()
+      }, function (err) {
+        console.log(err)
       })
     },
     getTasks () {
-      const header = 'Bearer ' + this.token
+      const header = 'Bearer ' + this.accessToken
       this.$http.get(`${this.groceryTasksUrl}`, { headers: { 'Authorization': header } }).then(response => {
         if (response && response.body && response.body.value) {
           this.items = response.body.value
@@ -86,7 +86,7 @@ export default {
       })
 
       setInterval(() => {
-        const header = 'Bearer ' + this.token
+        const header = 'Bearer ' + this.accessToken
         this.$http.get(`${this.groceryTasksUrl}`, { headers: { 'Authorization': header } }).then(response => {
           if (response && response.body && response.body.value) {
             this.items = response.body.value
@@ -105,7 +105,7 @@ export default {
       this.postTask(data)
     },
     postTask (data) {
-      const header = 'Bearer ' + this.token
+      const header = 'Bearer ' + this.accessToken
       this.$http.post(`${this.groceryTasksUrl}`, data, { headers: { 'Authorization': header } }).then(response => {
         if (response.status === 201) {
           this.items.push(response.body)
@@ -113,7 +113,7 @@ export default {
       })
     },
     completeTask (item) {
-      const header = 'Bearer ' + this.token
+      const header = 'Bearer ' + this.accessToken
       this.$http.post(`${this.apiRootUrl}me/tasks('${item.Id}')/complete`, { headers: { 'Authorization': header } }).then(response => {
         console.log(response)
       })

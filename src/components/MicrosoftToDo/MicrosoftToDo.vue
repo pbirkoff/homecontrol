@@ -55,7 +55,7 @@ export default {
         // this.userAgentApplication = new Msal.UserAgentApplication(microsoftTasksClientId)
         this.userAgentApplication.loginPopup([`${this.apiRootUrl}Tasks.readwrite`]).then(function (token) {
           self.idToken = token
-          user = this.userAgentApplication.getUser()
+          user = self.userAgentApplication.getUser()
           if (user) {
             self.getSilentToken()
           }
@@ -114,8 +114,18 @@ export default {
     },
     completeTask (item) {
       const header = 'Bearer ' + this.accessToken
-      this.$http.post(`${this.apiRootUrl}me/tasks('${item.Id}')/complete`, { headers: { 'Authorization': header } }).then(response => {
+      // https://outlook.office.com/api/v2.0/me/tasks('{task_id}')/complete
+      this.$http.post(`${this.apiRootUrl}api/v2.0/me/tasks('${item.Id}')/complete`, {}, { headers: { 'Authorization': header } }).then(response => {
         console.log(response)
+        if (response.status === 200) {
+          const itemIndex = this.items.findIndex((arrItem) => {
+            return arrItem.Id === item.Id
+          })
+
+          if (itemIndex >= 0) {
+            this.items.splice(itemIndex, 1)
+          }
+        }
       })
     }
   }

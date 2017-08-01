@@ -1,24 +1,30 @@
 <template>
-  <div id="app" class="dashboard">
-    <ul v-if="items.length">
-      <li v-if="item.Status !== 'Completed'" v-for="item in items">
-        <button @click="completeTask(item);">V</button>
-        {{ item.Subject }}
-      </li>
-    </ul>
-    <input type="text" v-model="taskSubject">
-    <button @click="submitTask()">Add</button>
+  <div>
+    <div v-if="loading === true" class="is--loading">
+      <img src="/static/img/preloader.png" alt="loading">
+    </div>
+    <div v-else>
+      <ul v-if="items.length">
+        <li v-if="item.Status !== 'Completed'" v-for="item in items">
+          <button @click="completeTask(item);">V</button>
+          {{ item.Subject }}
+        </li>
+      </ul>
+      <p v-if="!items || items.length === 0">Geen items</p>
+      <input type="text" v-model="taskSubject">
+      <button @click="submitTask()">Add</button>
 
-    <button @click="showQuickAdd = !showQuickAdd" class="btn btn-primary">Snel toevoegen</button>
-    <ul class="list-unstyled task-quick-add" v-if="showQuickAdd">
-      <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" @click="addTask('Brood')">Brood</button></li>
-      <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" @click="addTask('Melk')">Melk</button></li>
-      <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" @click="addTask('Eten Jilles')">Eten Jilles</button></li>
-      <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" @click="addTask('Luiers')">Luiers</button></li>
-      <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" @click="addTask('Kattenvoer')">Kattenvoer</button></li>
-      <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" @click="addTask('Pindakaas')">Pindakaas</button></li>
-      <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" @click="addTask('WC-papier')">WC-papier</button></li>
-    </ul>
+      <button @click="showQuickAdd = !showQuickAdd" class="btn btn-primary">Snel toevoegen</button>
+      <ul class="list-unstyled task-quick-add" v-if="showQuickAdd">
+        <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" @click="addTask('Brood')">Brood</button></li>
+        <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" @click="addTask('Melk')">Melk</button></li>
+        <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" @click="addTask('Eten Jilles')">Eten Jilles</button></li>
+        <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" @click="addTask('Luiers')">Luiers</button></li>
+        <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" @click="addTask('Kattenvoer')">Kattenvoer</button></li>
+        <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" @click="addTask('Pindakaas')">Pindakaas</button></li>
+        <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" @click="addTask('WC-papier')">WC-papier</button></li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -33,6 +39,7 @@ export default {
   },
   data () {
     return {
+      loading: true,
       showQuickAdd: false,
       taskSubject: '',
       userAgentApplication: null,
@@ -47,7 +54,6 @@ export default {
     init () {
       this.userAgentApplication = new Msal.UserAgentApplication(microsoftTasksClientId, null, function (errorDes, token, error, tokenType) {
         // this callback is called after loginRedirect OR acquireTokenRedirect (not used for loginPopup/aquireTokenPopup)
-        console.log(token)
       })
       let user = this.userAgentApplication.getUser()
       if (!user) {
@@ -69,10 +75,10 @@ export default {
     getSilentToken () {
       const self = this
       this.userAgentApplication.acquireTokenSilent([`${this.apiRootUrl}Tasks.readwrite`]).then(function (token) {
-        console.log('ATS promise resolved', token)
         self.accessToken = token
-        localStorage.setItem('accessToken', token)
         self.getTasks()
+
+        setInterval(self.getTasks, 900000)
       }, function (err) {
         console.log(err)
         self.init()
@@ -80,20 +86,18 @@ export default {
     },
     getTasks () {
       const header = 'Bearer ' + this.accessToken
-      this.$http.get(`${this.groceryTasksUrl}`, { headers: { 'Authorization': header } }).then(response => {
+      this.$http.get(`${this.groceryTasksUrl}?$top=99`, { headers: { 'Authorization': header } }).then(response => {
         if (response && response.body && response.body.value) {
-          this.items = response.body.value
+          this.items = []
+          // Only push not-completed items
+          response.body.value.forEach(v => {
+            if (v.Status !== 'Completed') {
+              this.items.push(v)
+            }
+          })
+          this.loading = false
         }
       })
-
-      setInterval(() => {
-        const header = 'Bearer ' + this.accessToken
-        this.$http.get(`${this.groceryTasksUrl}`, { headers: { 'Authorization': header } }).then(response => {
-          if (response && response.body && response.body.value) {
-            this.items = response.body.value
-          }
-        })
-      }, 900000)
     },
     submitTask () {
       this.addTask(this.taskSubject)

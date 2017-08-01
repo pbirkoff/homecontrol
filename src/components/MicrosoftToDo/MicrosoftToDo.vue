@@ -75,6 +75,7 @@ export default {
         self.getTasks()
       }, function (err) {
         console.log(err)
+        self.init()
       })
     },
     getTasks () {

@@ -196,32 +196,3 @@ export default {
   }
 }
 </script>
-
-<style>
-.keyboard {
-  position: absolute;
-  width: 100%;
-  left: 0;
-  bottom: 0;
-  z-index: 99;
-  background: red;
-}
-
-.exampleText {
-  flex: 0 0 80%;
-}
-
-.keyboard-row {
-  display: flex;
-}
-
-.keyboard-row button {
-  flex: 1;
-  height: 55px;
-  margin: .1rem;
-}
-
-.keyboard-row .spacebar {
-  flex: 0 0 80%;
-}
-</style>

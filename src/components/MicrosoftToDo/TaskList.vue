@@ -5,10 +5,10 @@
     </div>
     <div v-else>
       <h1>{{ title }}</h1>
-      <ul v-if="items.length">
-        <li v-if="item.Status !== 'Completed'" v-for="item in items">
-          <button @click="completeTask(item);">V</button>
-          {{ item.Subject }}
+      <ul class="checklist" v-if="items.length">
+        <li v-if="item.Status !== 'Completed'" :class="{ 'is-checked': item.checked }" v-for="item in items" @click="completeTask(item);">
+          <i class="icon ion-checkmark-round"></i>
+          <span>{{ item.Subject }}</span>
         </li>
       </ul>
       <p v-if="!items || items.length === 0">Geen items</p>
@@ -44,6 +44,7 @@ export default {
   },
   data () {
     return {
+      taskSaving: false,
       keyboardFocus: false,
       loading: true,
       showQuickAdd: false,
@@ -62,6 +63,7 @@ export default {
           // Only push not-completed items
           response.body.value.forEach(v => {
             if (v.Status !== 'Completed') {
+              v.checked = false
               this.items.push(v)
             }
           })
@@ -70,6 +72,7 @@ export default {
       })
     },
     addTask (task) {
+      this.taskSaving = true
       const data = {
         Subject: task
       }
@@ -79,23 +82,31 @@ export default {
       const header = 'Bearer ' + this.accesstoken
       this.$http.post(`${this.folderUrl}`, data, { headers: { 'Authorization': header } }).then(response => {
         if (response.status === 201) {
+          response.body.checked = false
           this.items.push(response.body)
         }
+        this.taskSaving = false
       })
     },
     completeTask (item) {
+      this.taskSaving = true
       const header = 'Bearer ' + this.accesstoken
-      // https://outlook.office.com/api/v2.0/me/tasks('{task_id}')/complete
       this.$http.post(`${this.apiRootUrl}api/v2.0/me/tasks('${item.Id}')/complete`, {}, { headers: { 'Authorization': header } }).then(response => {
-        console.log(response)
+        this.taskSaving = false
         if (response.status === 200) {
           const itemIndex = this.items.findIndex((arrItem) => {
             return arrItem.Id === item.Id
           })
 
-          if (itemIndex >= 0) {
-            this.items.splice(itemIndex, 1)
-          }
+          // Wait a while before actually removing the item to make it animate
+          item.checked = true
+          setTimeout(() => {
+            item.checked = false
+
+            if (itemIndex >= 0) {
+              this.items.splice(itemIndex, 1)
+            }
+          }, 900)
         }
       })
     },

@@ -1,4 +1,3 @@
-$icons: '01d', '01n', '02d', '02dn', '03d', '03n', '04d', '04n', '10d', '10n', '50d', '50n';
 .weather {
     display: grid;
     width: 100%;
@@ -44,6 +43,7 @@ $icons: '01d', '01n', '02d', '02dn', '03d', '03n', '04d', '04n', '10d', '10n', '
       font-size: 3.7rem;
       text-align: center;
       margin-bottom: .5rem;
+      height: 45px;
     }
 
     &__status-wind {

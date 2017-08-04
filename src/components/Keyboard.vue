@@ -2,7 +2,7 @@
   <div>
     <div class="keyboard" v-if="visible">
       <div class="keyboard-row keyboard-output">
-        <button @click.prevent="txt = ''">X</button>
+        <button @click.prevent="txt = ''; submitText()">X</button>
         <input type="text" class="exampleText" v-model="txt" v-on:focus="visible = true">
         <button @click.prevent="submitText()">Klaar</button>
       </div>
@@ -68,13 +68,12 @@
       </div>
       <div class="keyboard-row keyboard-row-5">
         <button></button>
-        <button @click.prevent="txt += ' '" class="spacebar"></button>
+        <button @click.prevent="txt += ' '" class="spacebar">_</button>
         <button></button>
       </div>
     </div>
   </div>
 </template>
-
 <script>
 export default {
   name: 'keyboard',

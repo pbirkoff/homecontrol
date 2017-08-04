@@ -11,11 +11,19 @@
           <span>{{ item.Subject }}</span>
         </li>
       </ul>
+
       <p v-if="!items || items.length === 0">Geen items</p>
-      <button class="btn btn-primary" @click.prevent="keyboardFocus = !keyboardFocus">Handmatig toevoegen</button>
+      <div class="button-group mt-2">
+        <button class="btn btn-primary" @click.prevent="keyboardFocus = !keyboardFocus">Handmatig toevoegen</button>
+        <button @click="showQuickAdd = !showQuickAdd" class="btn btn-primary">Snel toevoegen</button>
+      </div>
       <keyboard @submitted="keyboardSubmit" :visible="keyboardFocus"></keyboard>
-      <button @click="showQuickAdd = !showQuickAdd" class="btn btn-primary">Snel toevoegen</button>
       <ul class="list-unstyled task-quick-add" v-if="showQuickAdd && quicklist.length >= 0">
+        <li>
+          <a href="" style="color: black; float: right; padding: 1rem 0 1rem 1rem;" @click.prevent="showQuickAdd = !showQuickAdd">
+            <i class="fa fa-times"></i>
+          </a>
+        </li>
         <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" v-for="qaItem in quicklist" @click="addTask(qaItem)">{{qaItem}}</button></li>
       </ul>
     </div>

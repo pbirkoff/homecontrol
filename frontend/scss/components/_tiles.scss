@@ -3,7 +3,7 @@
 
     &-hue {
         grid-column: 10 / span 3;
-        grid-row: 3 / span 2;
+        grid-row: 3 / span 4;
         background-color: $yellow;
     }
 
@@ -18,13 +18,7 @@
 
     &-filler {
         grid-column: 1 / span 9;
-        grid-row: 1 / span 4;
+        grid-row: 1 / span 6;
         background-color: $blue;
-    }
-
-    &-wunderlist {
-      grid-column: 1 / 4;
-      grid-row: 1 / span 6;
-      background-color: $red;
     }
 }

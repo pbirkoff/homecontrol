@@ -4,19 +4,20 @@
   </div>
   <div v-else class="lights-group">
     <div v-if="lights && lightsFound">
-      <div class="lights-group__title">
-        <h1>Lichten</h1>
-
-        <div class="lights-group__title-buttons">
-          <button @click="allOff()" class="btn btn-primary">Alles uit</button>
-          <button @click="allOn()" class="btn btn-primary">Alles aan</button>
-        </div>
+      <ul class="list-unstyled">
+        <li v-for="light in lights" :key="light.uniqueid">
+          <light @statechange="lightStateChange" :state="light.state.on" :light="light"></light>
+        </li>
+      </ul>
+      <div class="button-group mt-2">
+        <button @click="allOff()" class="btn btn-primary">Uit</button>
+        <button @click="allOffAfterTimer()" class="btn btn-primary">Uit in (<span>{{lightsTimer}}</span>)</button>
+        <button @click="allOn()" class="btn btn-primary">Aan</button>
       </div>
-      <light @statechange="lightStateChange" :state="light.state.on" :light="light" v-for="light in lights" :key="light.uniqueid"></light>
     </div>
     <div v-if="!lightsFound">
       Lichten niet gevonden.
-    </div>
+  </div>
   </div>
 </template>
 
@@ -33,11 +34,10 @@ export default {
     return {
       lights: false,
       lightsFound: false,
-      loading: true
+      loading: true,
+      lightsTimer: 10,
+      timer: null
     }
-  },
-  computed: {
-
   },
   created () {
     this.getLights()
@@ -52,6 +52,23 @@ export default {
           light.state.on = false
         }
       }
+    },
+    allOffAfterTimer () {
+      if (this.timer !== null) {
+        clearInterval(this.timer)
+        this.timer = null
+      }
+
+      this.lightsTimer--
+      this.timer = setInterval(() => {
+        this.lightsTimer--
+        if (this.lightsTimer <= 0) {
+          this.allOff()
+          clearInterval(this.timer)
+          this.timer = null
+          this.lightsTimer = 10
+        }
+      }, 1000)
     },
     allOn () {
       for (const i in this.lights) {

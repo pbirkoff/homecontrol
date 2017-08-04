@@ -1,0 +1,37 @@
+.keyboard {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  z-index: 99;
+  background-color: $keyboard-backdrop;
+  padding: .2rem;
+
+  button {
+    color: $keyboard-color;
+    background-color: $keyboard-key-backdrop;
+    margin: .15rem;
+    padding: 1rem;
+    border: none;
+    flex: 1;
+
+    &:focus {
+      outline: $white auto 5px;
+    }
+  }
+
+  .exampleText {
+    margin: .2rem;
+    flex: 0 0 80%;
+    text-align: center;
+    font-size: 22px;
+  }
+}
+
+.keyboard-row {
+  display: flex;
+}
+
+.keyboard-row .spacebar {
+  flex: 0 0 80%;
+}

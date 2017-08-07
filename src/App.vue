@@ -1,5 +1,6 @@
 <template>
-  <div id="app" class="dashboard">
+  <div id="app" class="dashboard" @click="appClicked()">
+    <overlay :running="overlayTimerRunning"></overlay>
     <div class="tile tile-weather">
       <weather></weather>
     </div>
@@ -20,20 +21,30 @@ import {
   todoLists
 } from './config'
 import Weather from './components/Weather'
+import Overlay from './components/Overlay'
 import Hue from './components/Hue/Hue'
 import MicrosoftToDo from './components/MicrosoftToDo/MicrosoftToDo'
+import { bus } from './main'
 
 export default {
   name: 'app',
   components: {
     Weather,
     Hue,
-    MicrosoftToDo
+    MicrosoftToDo,
+    Overlay
   },
   data () {
     return {
       todoLists,
-      microsoftTasksClientId
+      microsoftTasksClientId,
+      overlayTimerRunning: true
+    }
+  },
+  methods: {
+    appClicked () {
+      // if the app is clicked anywhere, the timer for the overlay should be reset.
+      bus.$emit('overlay:reset')
     }
   }
 }

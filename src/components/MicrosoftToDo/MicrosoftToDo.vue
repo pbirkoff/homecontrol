@@ -22,6 +22,7 @@ and creates 2 task lists
 /* eslint no-undef: "error" */
 import TaskList from './TaskList'
 import Keyboard from '../../components/Keyboard'
+
 export default {
   name: 'mstodo',
   props: ['clientid', 'lists'],
@@ -37,6 +38,7 @@ export default {
       loading: true,
       userAgentApplication: null,
       idToken: null,
+      // accessToken: (localStorage.getItem('access-token')) ? localStorage.getItem('access-token') : null,
       accessToken: null,
       items: [],
       apiRootUrl: 'https://outlook.office.com/'
@@ -44,16 +46,15 @@ export default {
   },
   methods: {
     init () {
+      // const self = this
       this.userAgentApplication = new Msal.UserAgentApplication(this.clientid, null, function (errorDes, token, error, tokenType) {
         // this callback is called after loginRedirect OR acquireTokenRedirect (not used for loginPopup/aquireTokenPopup)
       })
-      let user = this.userAgentApplication.getUser()
+      const user = this.userAgentApplication.getUser()
       if (!user) {
-        const self = this
-        // this.userAgentApplication = new Msal.UserAgentApplication(this.clientid)
         this.userAgentApplication.loginPopup([`${this.apiRootUrl}Tasks.readwrite`]).then(function (token) {
-          self.idToken = token
-          user = self.userAgentApplication.getUser()
+          console.log(token, 'loginpopup')
+          const user = self.userAgentApplication.getUser()
           if (user) {
             self.getSilentToken()
           }
@@ -68,9 +69,9 @@ export default {
       const self = this
       this.userAgentApplication.acquireTokenSilent([`${this.apiRootUrl}Tasks.readwrite`]).then(function (token) {
         self.accessToken = token
-      }, function (err) {
+        console.log(token, 'accesstoken')
+      }, (err) => {
         console.log(err)
-        self.init()
       })
     }
   }

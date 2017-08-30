@@ -24,7 +24,7 @@
             <i class="fa fa-times"></i>
           </a>
         </li>
-        <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" v-for="qaItem in quicklist" @click="addTask(qaItem)">{{qaItem}}</button></li>
+        <li class="task-quick-add__item"><button class="btn btn-secondary btn-block" v-for="qaItem in quicklist" @click="addTask(qaItem); showQuickAdd = false;">{{qaItem}}</button></li>
       </ul>
     </div>
   </div>

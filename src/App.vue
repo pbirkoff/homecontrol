@@ -10,20 +10,21 @@
     </div>
 
     <div class="tile tile-filler">
-      <microsoft-to-do :clientid="microsoftTasksClientId" :lists="todoLists"></microsoft-to-do>
+      <google-task :lists="todoLists"></google-task>
     </div>
   </div>
 </template>
 
 <script>
 import {
-  microsoftTasksClientId,
+  googleClientId,
+  tasksApiKey,
   todoLists
 } from './config'
 import Weather from './components/Weather'
 import Overlay from './components/Overlay'
 import Hue from './components/Hue/Hue'
-import MicrosoftToDo from './components/MicrosoftToDo/MicrosoftToDo'
+import GoogleTask from './components/GoogleTask/GoogleTask'
 import { bus } from './main'
 
 export default {
@@ -31,13 +32,14 @@ export default {
   components: {
     Weather,
     Hue,
-    MicrosoftToDo,
+    GoogleTask,
     Overlay
   },
   data () {
     return {
       todoLists,
-      microsoftTasksClientId,
+      googleClientId,
+      tasksApiKey,
       overlayTimerRunning: true
     }
   },

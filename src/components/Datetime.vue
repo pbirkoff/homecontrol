@@ -45,40 +45,40 @@ export default {
     dutchMonthName (m) {
       switch (m) {
         case 1:
-          return 'januari'
+          return 'jan'
 
         case 2:
-          return 'februari'
+          return 'feb'
 
         case 3:
-          return 'maart'
+          return 'mrt'
 
         case 4:
-          return 'april'
+          return 'apr'
 
         case 5:
           return 'mei'
 
         case 6:
-          return 'juni'
+          return 'jun'
 
         case 7:
-          return 'juli'
+          return 'jul'
 
         case 8:
-          return 'augustus'
+          return 'augu'
 
         case 9:
-          return 'september'
+          return 'sept'
 
         case 10:
-          return 'oktober'
+          return 'okt'
 
         case 11:
-          return 'november'
+          return 'nov'
 
         case 12:
-          return 'december'
+          return 'dec'
 
       }
     }

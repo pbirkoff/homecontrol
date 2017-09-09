@@ -4,7 +4,6 @@
     <div class="weather__temperature">
       {{ tempFixed }}<i class="wi wi-celsius"></i>
     </div>
-    <div class="weather__city">{{ cityName }} </div>
     <div class="weather__status">
       <div class="weather__status-icon wi" :class="skyIcon"></div>
       <div class="weather__status-wind">
@@ -72,7 +71,7 @@ export default {
         return 'wi-rain-mix'
       }
 
-      if (this.skyDescription === 'light-rain' || this.skyDescription.indexOf('drizzle') > 0) {
+      if (this.skyDescription === 'light-rain' || this.skyDescription.indexOf('drizzle') >= 0) {
         return 'wi-raindrops'
       }
 

@@ -5,12 +5,69 @@
     <title>homecontrol</title>
     <script src="https://apis.google.com/js/api.js"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
     <script src="https://secure.aadcdn.microsoftonline-p.com/lib/0.1.1/js/msal.min.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="//code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
     <link rel="stylesheet" href="/static/css/weather-icons-wind.min.css">
     <link rel="stylesheet" href="/static/css/weather-icons.min.css">
     <link rel="stylesheet" href="/static/css/framework.min.css">
+    <script>
+      function sortByKey (array, key) {
+        return array.sort(function (a, b) {
+          const x = a[key]
+          const y = b[key]
+          return ((x < y) ? -1 : ((x > y) ? 1 : 0))
+        })
+      }
+
+      function prefix (n) {
+        return (parseInt(n, 10) >= 10 ? '' : '0') + n
+      }
+
+      function dutchMonthName (m) {
+        switch (m) {
+          case 1:
+            return 'jan'
+
+          case 2:
+            return 'feb'
+
+          case 3:
+            return 'mrt'
+
+          case 4:
+            return 'apr'
+
+          case 5:
+            return 'mei'
+
+          case 6:
+            return 'jun'
+
+          case 7:
+            return 'jul'
+
+          case 8:
+            return 'augu'
+
+          case 9:
+            return 'sept'
+
+          case 10:
+            return 'okt'
+
+          case 11:
+            return 'nov'
+
+          case 12:
+            return 'dec'
+
+        }
+      }
+    </script>
   </head>
   <body>
     <div id="app"></div>

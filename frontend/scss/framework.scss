@@ -2,6 +2,7 @@
 @import '3rdparty/bootstrap/mixins';
 @import '3rdparty/bootstrap/custom';
 @import '3rdparty/bootstrap/buttons';
+@import '3rdparty/bootstrap/modal';
 @import '3rdparty/bootstrap/button-group';
 @import '3rdparty/bootstrap/type';
 @import '3rdparty/bootstrap/forms';
@@ -16,8 +17,9 @@
 @import 'components/tasks';
 @import 'components/datetime';
 @import 'components/tiles';
-@import 'components/wunderlist';
+@import 'components/calendar';
 @import 'components/lights';
+@import 'components/loader';
 @import 'components/keyboard';
 @import 'scaffolding';
 

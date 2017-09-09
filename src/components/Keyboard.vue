@@ -2,9 +2,9 @@
   <div>
     <div class="keyboard" v-if="visible">
       <div class="keyboard-row keyboard-output">
-        <button @click.prevent="txt = ''; submitText()">X</button>
+        <button @click.prevent="txt = ''; submitText()">Stop</button>
         <input type="text" class="exampleText" v-model="txt" v-on:focus="visible = true">
-        <button @click.prevent="submitText()">Klaar</button>
+        <button @click.prevent="submitText()">Plaats</button>
       </div>
       <div class="keyboard-row keyboard-row-1">
         <button @click.prevent="addSymbol('1')">{{ symbol('1') }}</button>

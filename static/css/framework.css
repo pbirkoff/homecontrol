@@ -444,6 +444,130 @@ input[type="button"].btn-block {
   width: 100%;
 }
 
+.modal-open {
+  overflow: hidden;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  display: none;
+  overflow: hidden;
+  outline: 0;
+}
+
+.modal.fade .modal-dialog {
+  transition: transform 0.3s ease-out;
+  transform: translate(0, -25%);
+}
+
+.modal.show .modal-dialog {
+  transform: translate(0, 0);
+}
+
+.modal-open .modal {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.modal-dialog {
+  position: relative;
+  width: auto;
+  margin: 10px;
+}
+
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.3rem;
+  outline: 0;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  background-color: #000;
+}
+
+.modal-backdrop.fade {
+  opacity: 0;
+}
+
+.modal-backdrop.show {
+  opacity: 0.5;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  border-bottom: 1px solid #EBEBEB;
+}
+
+.modal-title {
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+.modal-body {
+  position: relative;
+  flex: 1 1 auto;
+  padding: 15px;
+}
+
+.modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 15px;
+  border-top: 1px solid #EBEBEB;
+}
+
+.modal-footer > :not(:first-child) {
+  margin-left: .25rem;
+}
+
+.modal-footer > :not(:last-child) {
+  margin-right: .25rem;
+}
+
+.modal-scrollbar-measure {
+  position: absolute;
+  top: -9999px;
+  width: 50px;
+  height: 50px;
+  overflow: scroll;
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 500px;
+    margin: 30px auto;
+  }
+  .modal-sm {
+    max-width: 300px;
+  }
+}
+
+@media (min-width: 992px) {
+  .modal-lg {
+    max-width: 800px;
+  }
+}
+
 .btn-group,
 .btn-group-vertical {
   position: relative;
@@ -2907,8 +3031,8 @@ template {
  * -------------------------- */
 @font-face {
   font-family: 'FontAwesome';
-  src: url("../fonts/font-awesome/fontawesome-webfont.eot?v=4.4.0");
-  src: url("../fonts/font-awesome/fontawesome-webfont.eot?#iefix&v=4.4.0") format("embedded-opentype"), url("../fonts/font-awesome/fontawesome-webfont.woff2?v=4.4.0") format("woff2"), url("../fonts/font-awesome/fontawesome-webfont.woff?v=4.4.0") format("woff"), url("../fonts/font-awesome/fontawesome-webfont.ttf?v=4.4.0") format("truetype"), url("../fonts/font-awesome/fontawesome-webfont.svg?v=4.4.0#fontawesomeregular") format("svg");
+  src: url("../font/font-awesome/fontawesome-webfont.eot?v=4.4.0");
+  src: url("../font/font-awesome/fontawesome-webfont.eot?#iefix&v=4.4.0") format("embedded-opentype"), url("../font/font-awesome/fontawesome-webfont.woff2?v=4.4.0") format("woff2"), url("../font/font-awesome/fontawesome-webfont.woff?v=4.4.0") format("woff"), url("../font/font-awesome/fontawesome-webfont.ttf?v=4.4.0") format("truetype"), url("../font/font-awesome/fontawesome-webfont.svg?v=4.4.0#fontawesomeregular") format("svg");
   font-weight: normal;
   font-style: normal;
 }
@@ -5592,13 +5716,13 @@ button {
   display: grid;
   width: 100%;
   height: 100%;
-  grid-template-columns: 65% 35%;
-  grid-template-rows: 35px 1fr 1fr;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 35% 65%;
 }
 
 .weather__datetime {
-  grid-row: 2 / span 2;
   grid-column: 1;
+  grid-row: 1 / span 2;
   font-size: 2rem;
   display: flex;
   justify-content: center;
@@ -5611,27 +5735,20 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
-}
-
-.weather__city {
-  grid-column: 1 / span 2;
-  grid-row: 1;
-  border-bottom: 2px solid #fff;
-  line-height: 2.2rem;
-  text-align: center;
+  font-size: 1.5rem;
 }
 
 .weather__status {
-  grid-row: 3;
+  grid-row: 2 / span 2;
   grid-column: 2;
   display: flex;
   flex-direction: column;
   border-top: 2px solid #fff;
+  justify-content: center;
 }
 
 .weather__status-icon {
-  font-size: 3.7rem;
+  font-size: 2.4rem;
   text-align: center;
   margin-bottom: .5rem;
   height: 45px;
@@ -5651,23 +5768,22 @@ button {
   color: #fff;
 }
 
-.task-list {
-  padding-left: 70px;
+.taskList {
+  max-height: 100%;
 }
 
-.task-list__item {
-  position: relative;
-  height: 35px;
+.taskList .list {
+  display: flex;
+  flex-direction: column;
 }
 
-.task-list__item-btn-finalize {
-  position: absolute;
-  left: -65px;
-  background: none;
-  border: 0;
-  font-size: 1.8rem;
-  color: #fff;
-  top: -10px;
+.taskList .list .header {
+  flex: 0;
+}
+
+.taskList .list .list-scroller {
+  flex: 1;
+  overflow: auto;
 }
 
 .task-quick-add {
@@ -5767,7 +5883,7 @@ button {
 }
 
 .datetime {
-  font-size: 2rem;
+  font-size: 1.3rem;
 }
 
 .datetime__date {
@@ -5775,7 +5891,7 @@ button {
 }
 
 .datetime__time {
-  font-size: 2.8rem;
+  font-size: 2.2rem;
 }
 
 .datetime__colon {
@@ -5801,29 +5917,94 @@ button {
   color: #fff;
 }
 
-.tile-hue {
+.tile-bottom-right {
   grid-column: 10 / span 3;
   grid-row: 3 / span 4;
-  background-color: #EEC857;
+  border-left: 1px solid #fff;
 }
 
 .tile-weather {
   grid-column: 10 / span 3;
   grid-row: 1 / span 2;
-  background-color: #4CB09D;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-left: 1px solid #fff;
+  border-bottom: 1px solid #fff;
 }
 
 .tile-filler {
   grid-column: 1 / span 9;
-  grid-row: 1 / span 6;
-  background-color: #406280;
+  grid-row: 1 / span 5;
+  padding: 1rem 1rem .3rem;
 }
 
-.wunderlist {
+.tile-bottom-bar {
+  grid-column: 1 / span 9;
+  grid-row: 6;
+  padding: .5rem 1rem;
+}
+
+.calendar-list-holder {
+  height: 100%;
+  overflow: auto;
+}
+
+.calendar-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.calendar-list__item {
+  width: 100%;
+  box-sizing: border-box;
   padding: 1rem;
+  padding-right: 45px;
+  border-bottom: 1px solid #fff;
+  position: relative;
+}
+
+.calendar-list__item .avatar {
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  border: 1px solid #fff;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  display: none;
+  border-radius: 50%;
+}
+
+.calendar-list__item.author-tengwerda .avatar-tengwerda {
+  display: block;
+}
+
+.calendar-list__item.author-alilaanstra .avatar-alilaanstra {
+  display: block;
+}
+
+.calendar-list__item .item {
+  display: flex;
+}
+
+.calendar-list__item .item .datetime {
+  flex: 0 0 22%;
+  text-align: center;
+  margin-right: 1rem;
+}
+
+.calendar-list__item .item .datetime__date {
+  font-size: 1.3rem;
+}
+
+.calendar-list__item .item .datetime__time {
+  font-size: .8rem;
+}
+
+.calendar-list__item .item .description {
+  flex: 1;
 }
 
 .lights-group {
@@ -5878,6 +6059,34 @@ button {
   background: linear-gradient(to right, #f088fc 1%, #AC6CFF 70%);
 }
 
+.loader {
+  border: 4px solid transparent;
+  border-top: 4px solid #000;
+  /* Blue */
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  animation: spin 1s linear infinite;
+  margin: 0 auto;
+  opacity: 0;
+}
+
+.loader.is--active {
+  opacity: 1;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(25deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 .keyboard {
   position: absolute;
   width: 100%;
@@ -5923,11 +6132,18 @@ html {
 
 body {
   background-color: #fff;
+  background: url("../img/background.jpg") no-repeat;
+  background-size: cover;
   padding: 0;
   margin: 0;
   font-family: "Roboto", -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   height: 100%;
   width: 100%;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.modal {
+  text-shadow: none;
 }
 
 a {
@@ -5948,9 +6164,14 @@ a {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(6, 1fr);
+  grid-template-rows: repeat(5, 1fr) 61px;
 }
 
 .text--danger {
   color: #DD5B4E;
+}
+
+.hueModalToggle {
+  color: #fff;
+  font-size: 150%;
 }

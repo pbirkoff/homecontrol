@@ -6,22 +6,22 @@
     color: $white;
   }
 }
-.task-list {
-  padding-left: 70px;
 
-  &__item {
-    position: relative;
-    height: 35px;
+.taskList {
+  max-height: 100%;
+}
+
+.taskList .list {
+  display: flex;
+  flex-direction: column;
+
+  .header {
+    flex: 0;
   }
 
-  &__item-btn-finalize {
-      position: absolute;
-      left: -65px;
-      background: none;
-      border: 0;
-      font-size: 1.8rem;
-      color: $white;
-      top: -10px;
+  .list-scroller {
+    flex: 1;
+    overflow: auto;
   }
 }
 

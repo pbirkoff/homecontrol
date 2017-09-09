@@ -1,6 +1,6 @@
 <template>
-  <div v-if="loading === true" class="is--loading">
-    <img src="/static/img/preloader.png" alt="loading">
+  <div v-if="loading === true">
+    <div class="loader" :class="{ 'is--active' : loading }"></div>
   </div>
   <div v-else class="lights-group">
     <div v-if="lights && lightsFound">
@@ -16,8 +16,8 @@
       </div>
     </div>
     <div v-if="!lightsFound">
-      Lichten niet gevonden.
-  </div>
+        Lichten niet gevonden.
+    </div>
   </div>
 </template>
 

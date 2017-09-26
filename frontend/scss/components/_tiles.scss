@@ -27,5 +27,7 @@
         grid-column: 1 / span 9;
         grid-row: 6;
         padding: .5rem 1rem;
+        display: flex;
+        align-items: flex-end;
     }
 }

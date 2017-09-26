@@ -17,6 +17,7 @@
       <a class="hueModalToggle" href="#" @click.prevent="openHueModal">
         <i class="fa fa-2x fa-lightbulb-o"></i>
       </a>
+      <crypto-rate fsym="ETH"></crypto-rate>
     </div>
 
     <div class="modal fade" ref="hueModal">
@@ -44,6 +45,7 @@ import {
   tasksApiKey,
   todoLists
 } from './config'
+import CryptoRate from './components/CryptoRate'
 import Weather from './components/Weather'
 import Overlay from './components/Overlay'
 import Hue from './components/Hue/Hue'
@@ -59,7 +61,8 @@ export default {
     Hue,
     GoogleTask,
     GoogleCalendar,
-    Overlay
+    Overlay,
+    CryptoRate
   },
   data () {
     return {

@@ -59,7 +59,7 @@ export default {
         return 'wi-snow'
       }
 
-      if (this.skyDescription === 'mist') {
+      if (this.skyDescription === 'mist' || this.skyDescription === 'fog') {
         return 'wi-fog'
       }
 

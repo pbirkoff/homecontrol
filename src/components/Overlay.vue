@@ -71,6 +71,7 @@ export default {
   pointer-events: none;
   color: #FFF;
   text-align: center;
+  font-size: 2rem;
 }
 
 .overlay.active {

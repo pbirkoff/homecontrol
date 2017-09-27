@@ -56,9 +56,28 @@ export default {
     if (gapi) {
       gapi.load('client', this.getTasks)
       setInterval(this.getTasks, 900000)
+
+      /* ****** RUN THIS METHOD TO GET YOUR LIST IDS NEEDED IN CONFIG ******* */
+      this.getLists()
     }
   },
   methods: {
+    getLists () {
+      gapi.client.request({
+        'path': `/tasks/v1/users/@me/lists`,
+        'callback': function (r) {
+          if (r) {
+            console.log('THESE ARE YOUR LISTS AND IDS:')
+            for (let i in r.items) {
+              console.log(`${r.items[i].title} - ${r.items[i].id}`)
+            }
+            console.log('')
+            console.log('')
+            console.log('')
+          }
+        }
+      })
+    },
     getTasks () {
       this.loading = true
       this.items = []

@@ -1,27 +1,30 @@
-// Rename to config.js and you're good to go
+// rename to config.js
 
-export const weatherApiKey = '' // Openweathermap
-export const weatherCityId = '' // Openweathermap has a json file with all cities and ID's (http://openweathermap.org/help/city_list.txt)
+export const weatherApiKey = ''
+export const weatherCityId = ''
 export const hueUrl = ''
-export const wunderListAccessToken = ''
-export const wunderListClientId = ''
-export const wunderListListId = integer // the ID of the list you want to receive in your component
-export const microsoftTasksClientId = '' // Make an app on microsoft website to get your client ID
+
+export const googleClientId = '' // create a google client ID in Google's developer
+export const tasksApiKey = '' // create an API in google's Developer
+
 export const todoLists = [{
-  title: 'Title of the list',
-  id: 'taskfolder_id',
+  title: 'Boodschappen',
+  id: '', /// list ID given by Google Tasks. In list.vue run getList and check your browser console
   quickAdd: [
     'Brood',
     'Melk',
+    'Eten Jilles',
+    'Luiers',
+    'Kattenvoer',
     'Pindakaas',
     'WC papier'
   ]
 }, {
-  title: 'Title of another list',
-  id: 'another taskfolder_id',
+  title: 'Todos',
+  id: '', // list ID given by Google Tasks. In list.vue run getList and check your browser console
   quickAdd: [
     'Kapper bellen',
-    'Mam bellen',
+    'Mem bellen',
     'Gras maaien'
   ]
 }]

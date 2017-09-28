@@ -27,7 +27,8 @@
 
 import {
   tasksApiKey,
-  googleClientId
+  googleClientId,
+  calendars
 } from '../../config'
 
 export default {
@@ -52,8 +53,10 @@ export default {
   methods: {
     refreshItems () {
       this.items = []
-      this.getItems()
-      this.getItems('alilaanstra@gmail.com')
+
+      for (let i in calendars) {
+        this.getItems(calendars[i])
+      }
     },
     getItems (calId = 'primary') {
       this.loading = true

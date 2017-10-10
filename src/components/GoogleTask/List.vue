@@ -14,7 +14,7 @@
       </div>
       <div v-else class="list-scroller">
           <ul class="checklist">
-            <li v-if="item.status === 'needsAction'" :class="{ 'is-checked': item.checked }" v-for="item in items" @click="removeTask(item);">
+            <li v-if="item.status === 'needsAction' && item.title !== ''" :class="{ 'is-checked': item.checked }" v-for="item in items" @click="removeTask(item);">
               <i class="icon ion-checkmark-round"></i>
               <span>{{ item.title }}</span>
             </li>

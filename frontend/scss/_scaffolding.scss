@@ -47,6 +47,12 @@ a {
 .hueModalToggle {
   color: $white;
   font-size: 150%;
+  position: relative;
+  z-index: 999999;
+}
+
+.modal {
+  z-index: 999999;
 }
 
 .rate {

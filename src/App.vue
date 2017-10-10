@@ -18,6 +18,7 @@
         <i class="fa fa-2x fa-lightbulb-o"></i>
       </a>
       <crypto-rate fsym="ETH"></crypto-rate>
+      <crypto-rate fsym="WAVES"></crypto-rate>
     </div>
 
     <div class="modal fade" ref="hueModal">
